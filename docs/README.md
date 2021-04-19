@@ -218,6 +218,18 @@ If you have multiple cars, TWCManager will attempt to identify which cars are ho
    * TWCManager uses your Tesla login to obtain an API token. This API token is used to talk to your vehicle(s).
    * When the available charger capacity falls below minAmpsPerTWC, the TWCManager script will contact the Tesla API to tell the vehicle to stop charging. If this is not configured, your vehicle will continue to charge at 6A even when the charging policy dictates that we stop charging.
 
+Note: this functionality is still under development in the new interface.  At the moment it requires a little bit of manual work.  
+   * Multi-Factor Authentication (MFA) needs to be turned on in your tesla account, done on the tesla website (www.tesla.com)
+   * Enter your tesla user name, password and the current MFA code number into the following website (http://registration.teslatasks.com/generateTokens)
+   * Copy the two long generated strings into the following settings file, save the file and then reboot the raspberry pi.  
+       * Note the names are slightly different between the website that generates the tokens and the settings.json file:
+       * "Access Token" is pasted into the field called "carApiBearerToken" 
+       * "Refresh Token" is pasted into the field called "carApiRefreshToken"
+       * The settings.json file is one long line of text, so you may need to scroll a long way to the end of that line to find the headings.
+```
+sudo nano /etc/twcmanager/settings.json 
+sudo nano reboot
+```
 ### Why does my TWC increase charging momentarily to 21A or 17A around the time that it changes charging rates?
 
 There are a number of reasons for this:
